@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6f1">
+  <meta name="description" content="実際に柏に住んでいる人の勝手なトップ３">
+  <title>柏市の魅力</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4f6f1;
+      --ink: #172923;
+      --muted: #68766f;
+      --line: #d6ddd6;
+      --green: #245c49;
+      --lime: #d8ed8c;
+      --coral: #e56c52;
+      --white: #fffefa;
+      --serif: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+      --sans: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background-color: var(--paper);
+      background-image: repeating-linear-gradient(0deg, transparent 0, transparent 39px, rgba(36, 92, 73, .035) 40px);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.8;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+
+    .site-header {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-family: var(--serif); font-size: 19px; font-weight: 700; white-space: nowrap; }
+    .brand-mark { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 50%; background: var(--lime); color: var(--green); font-family: var(--serif); font-size: 18px; }
+    .nav { display: flex; align-items: center; gap: 32px; color: #485950; font-size: 13px; }
+    .nav a { transition: color .2s ease; }
+    .nav a:hover { color: var(--coral); }
+    .nav-contact { padding: 9px 16px; border: 1px solid var(--ink); border-radius: 2px; color: var(--ink); }
+    .menu-toggle { display: none; width: 42px; height: 42px; border: 1px solid var(--line); background: transparent; cursor: pointer; }
+
+    .hero { display: grid; grid-template-columns: 1fr .94fr; gap: 76px; align-items: center; padding-block: 74px 85px; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 22px; color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: .14em; }
+    .eyebrow::before { width: 23px; height: 1px; background: var(--coral); content: ""; }
+    h1, h2, h3, p { margin-top: 0; }
+    .hero h1 { margin-bottom: 23px; font-family: var(--serif); font-size: clamp(42px, 5vw, 66px); font-weight: 500; line-height: 1.36; }
+    .hero h1 span { color: var(--green); }
+    .hero-copy { max-width: 430px; margin-bottom: 30px; color: var(--muted); font-size: 14px; }
+    .text-link { display: inline-flex; align-items: center; gap: 18px; padding-bottom: 5px; border-bottom: 1px solid var(--green); color: var(--green); font-size: 13px; font-weight: 700; }
+    .text-link span { font-size: 18px; transition: transform .2s ease; }
+    .text-link:hover span { transform: translateX(4px); }
+    .hero-art { position: relative; min-height: 408px; }
+    .hero-art img { width: 100%; height: 408px; object-fit: cover; object-position: center 54%; }
+    .art-label { position: absolute; right: -17px; bottom: 28px; width: 142px; padding: 16px 18px; background: var(--lime); color: var(--ink); font-family: var(--serif); font-size: 14px; line-height: 1.7; transform: rotate(2deg); }
+    .art-label small { display: block; margin-top: 5px; color: #536346; font-family: var(--sans); font-size: 10px; }
+    .hero-index { position: absolute; top: 16px; left: -34px; color: var(--coral); font-family: var(--serif); font-size: 12px; writing-mode: vertical-rl; }
+
+    .section { padding-block: 70px 82px; border-top: 1px solid var(--line); }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 30px; }
+    .section-heading h2 { margin-bottom: 0; font-family: var(--serif); font-size: 32px; font-weight: 500; line-height: 1.4; }
+    .section-heading p { max-width: 360px; margin-bottom: 3px; color: var(--muted); font-size: 12px; }
+    .filter-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; }
+    .filter-button { min-height: 35px; padding: 5px 14px; border: 1px solid var(--line); border-radius: 99px; background: transparent; color: #52635a; font-size: 11px; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+    .filter-button:hover, .filter-button[aria-pressed="true"] { border-color: var(--green); background: var(--green); color: white; }
+    .search { display: flex; align-items: center; gap: 8px; width: min(230px, 100%); border-bottom: 1px solid #9daaa1; }
+    .search span { color: var(--green); font-size: 17px; }
+    .search input { width: 100%; padding: 7px 0; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 12px; }
+    .search input::placeholder { color: #89968e; }
+    .poem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 30px; border-top: 1px solid var(--line); }
+    .poem-card { min-height: 222px; padding: 23px 4px 20px; border-bottom: 1px solid var(--line); animation: rise .45s both; }
+    .poem-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; color: var(--muted); font-size: 10px; }
+    .poem-tag { color: var(--coral); font-weight: 700; }
+    .poem-card h3 { margin-bottom: 10px; font-family: var(--serif); font-size: 21px; font-weight: 500; }
+    .poem-card p { min-height: 54px; margin-bottom: 15px; color: #5b6b62; font-family: var(--serif); font-size: 12px; line-height: 1.9; white-space: pre-line; }
+    .read-button { display: inline-flex; align-items: center; gap: 8px; padding: 0; border: 0; background: transparent; color: var(--green); font-size: 11px; cursor: pointer; }
+    .read-button span { font-size: 16px; }
+    .empty-state { grid-column: 1 / -1; padding: 36px 0; color: var(--muted); text-align: center; }
+
+    .about { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: start; padding-block: 67px 78px; border-top: 1px solid var(--line); }
+    .about h2 { margin: 0; font-family: var(--serif); font-size: 28px; font-weight: 500; line-height: 1.6; }
+    .about-copy { max-width: 580px; color: #596960; font-size: 13px; }
+    .about-copy p:last-child { margin-bottom: 0; }
+    .about-note { display: inline-block; margin-top: 6px; padding: 7px 11px; background: var(--lime); color: var(--green); font-family: var(--serif); font-size: 12px; transform: rotate(-1deg); }
+    .site-footer { padding-block: 24px; border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 10px; }
+    .footer-inner .brand { color: var(--ink); font-size: 14px; }
+
+    dialog { width: min(550px, calc(100% - 32px)); max-height: min(80vh, 760px); padding: 34px clamp(23px, 6vw, 55px); border: 1px solid var(--line); background: var(--white); color: var(--ink); box-shadow: 0 18px 70px #1729232b; }
+    dialog::backdrop { background: #172923a6; }
+    .dialog-close { display: block; margin: -12px -18px 12px auto; padding: 6px 10px; border: 1px solid var(--line); background: transparent; font-size: 12px; cursor: pointer; }
+    .dialog-tag { color: var(--coral); font-size: 11px; }
+    dialog h2 { margin: 10px 0 20px; font-family: var(--serif); font-size: 28px; font-weight: 500; }
+    .dialog-poem { color: #3e5146; font-family: var(--serif); font-size: 16px; line-height: 2.25; white-space: pre-line; }
+    .dialog-author { margin: 22px 0 0; color: var(--muted); font-size: 11px; text-align: right; }
+    @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 36px, 560px); }
+      .site-header { height: 70px; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav { position: absolute; z-index: 3; top: 69px; right: 0; left: 0; display: none; align-items: stretch; gap: 0; padding: 8px 18px 18px; border-bottom: 1px solid var(--line); background: var(--paper); }
+      .nav.is-open { display: flex; flex-direction: column; }
+      .nav a { padding: 11px 8px; }
+      .nav-contact { margin-top: 4px; text-align: center; }
+      .hero { grid-template-columns: 1fr; gap: 34px; padding-block: 49px 61px; }
+      .hero h1 { font-size: clamp(40px, 11vw, 58px); }
+      .hero-copy { max-width: 410px; }
+      .hero-art { min-height: 290px; margin-right: 12px; }
+      .hero-art img { height: 290px; }
+      .hero-index { left: -18px; }
+      .art-label { right: -12px; bottom: 17px; }
+      .section { padding-block: 53px 61px; }
+      .section-heading { align-items: start; flex-direction: column; gap: 10px; }
+      .section-heading h2 { font-size: 28px; }
+      .section-heading p { margin: 0; }
+      .filter-row { align-items: start; flex-direction: column; }
+      .search { width: 100%; }
+      .poem-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; }
+      .poem-card { min-height: 215px; }
+      .about { grid-template-columns: 1fr; gap: 22px; padding-block: 52px 60px; }
+    }
+    @media (max-width: 440px) {
+      .poem-grid { grid-template-columns: 1fr; }
+      .poem-card { min-height: 0; padding-block: 20px; }
+      .poem-card p { min-height: 0; }
+      .footer-inner { align-items: start; flex-direction: column; gap: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">詩</span>余白の詩室</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="メニューを開く">☰</button>
+      <nav class="nav" id="site-nav" aria-label="メインナビゲーション">
+        <a href="#top">トップ</a>
+        <a href="#poems">トップ3</a>
+        <a href="#about">このページについて</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="wrap hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">A SMALL ROOM FOR POETRY</p>
+        <h1 id="hero-title">柏市の魅力、<br><span>トップ3</span></h1>
+        <p class="hero-copy">実際に暮らしている中でのトップ３です。</p>
+        <a class="text-link" href="#poems">トップ3を見る <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="section" id="poems" aria-labelledby="poems-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2 id="poems-title">柏市の魅力、トップ3</h2>
+        </div>
+        <div class="poem-grid" id="poem-grid"></div>
+      </div>
+    </section>
+
+    <section class="wrap about" id="about" aria-labelledby="about-title">
+      <div>
+        <p class="eyebrow">ABOUT THIS ROOM</p>
+        <h2 id="about-title">みんなが柏の良さに気づいてくれるように。</h2>
+        <span class="about-note">読むだけでも、もちろん。</span>
+      </div>
+      <div class="about-copy">
+        <p>柏市の魅力を勝手に買ったっているだけなので</p>
+        <p>いち意見とし見ていただけると幸いです。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">詩</span>柏の魅力を知る</a>
+      <span>新たな場所を知る</span>
+    </div>
+  </footer>
+
+  <script>
+    const poems = [
+      {
+        title: "旧吉田邸",
+        body: "四季折々の歴史や文化イベントを行っている。また、国指定の重要文化財なので歴史的にも楽しむことができる。",
+      },
+      {
+        title: "あけぼの山公園，
+        body: "シンボルのオランダの風車と四季折々の花畑が魅力、春は約１６万本のカラフルなチューリップ初夏～夏の間はポピー、花しょうぶ、アジサイ、ハス、ひまわり秋じゃコスモスなどがみられる",
+      },
+      {
+        title: "柏の葉公園",
+        body: "",
+      }
+    ];
+
+    const grid = document.querySelector("#poem-grid");
+
+    function renderPoems() {
+      grid.innerHTML = "";
+
+      poems.forEach((poem, index) => {
+        const article = document.createElement("article");
+        article.className = "poem-card";
+        article.style.animationDelay = `${index * 45}ms`;
+
+        const meta = document.createElement("div");
+        meta.className = "poem-meta";
+
+        const tag = document.createElement("span");
+        tag.className = "poem-tag";
+        tag.textContent = poem.tag;
+
+        const date = document.createElement("time");
+        date.textContent = poem.date;
+
+        const title = document.createElement("h3");
+        title.textContent = poem.title;
+
+        const excerpt = document.createElement("p");
+        excerpt.textContent = poem.excerpt;
+
+        meta.append(tag, date);
+        article.append(meta, title, excerpt);
+        grid.append(article);
+      });
+    }
+
+    const menuToggle = document.querySelector(".menu-toggle");
+    const siteNav = document.querySelector("#site-nav");
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "メニューを開く" : "メニューを閉じる");
+      siteNav.classList.toggle("is-open", !isOpen);
+    });
+    siteNav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        siteNav.classList.remove("is-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "メニューを開く");
+      }
+    });
+
+    renderPoems();
+  </script>
+</body>
+</html>
