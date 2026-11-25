@@ -148,7 +148,7 @@
 
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">詩</span>余白の詩室</a>
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">柏</span>柏の魅力を知ろう</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="メニューを開く">☰</button>
       <nav class="nav" id="site-nav" aria-label="メインナビゲーション">
         <a href="#top">トップ</a>
@@ -161,10 +161,13 @@
   <main id="top">
     <section class="wrap hero" aria-labelledby="hero-title">
       <div>
-        <p class="eyebrow">A SMALL ROOM FOR POETRY</p>
         <h1 id="hero-title">柏市の魅力、<br><span>トップ3</span></h1>
         <p class="hero-copy">実際に暮らしている中でのトップ３です。</p>
         <a class="text-link" href="#poems">トップ3を見る <span aria-hidden="true">→</span></a>
+      </div>
+      <div>
+        <h2 style="margin: 0 0 14px; font-family: var(--serif); font-size: 28px; font-weight: 500; line-height: 1.6;">みんなが柏の良さに気づいてくれるように。</h2>
+        <span class="about-note">読むだけでも、もちろん。</span>
       </div>
     </section>
 
@@ -178,14 +181,8 @@
     </section>
 
     <section class="wrap about" id="about" aria-labelledby="about-title">
-      <div>
-        <p class="eyebrow">ABOUT THIS ROOM</p>
-        <h2 id="about-title">みんなが柏の良さに気づいてくれるように。</h2>
-        <span class="about-note">読むだけでも、もちろん。</span>
-      </div>
-      <div class="about-copy">
-        <p>柏市の魅力を勝手に買ったっているだけなので</p>
-        <p>いち意見とし見ていただけると幸いです。</p>
+      <div id="about-title" class="about-copy" style="grid-column: 1 / -1;">
+        <p style="margin: 0; color: var(--muted); font-size: 13px; line-height: 1.8;">※柏市の魅力を勝手に語っているだけなので<br>いち意見として見ていただけると幸いです。</p>
       </div>
     </section>
   </main>
@@ -200,16 +197,16 @@
   <script>
     const poems = [
       {
-        title: "旧吉田邸",
-        body: "四季折々の歴史や文化イベントを行っている。また、国指定の重要文化財なので歴史的にも楽しむことができる。",
-      },
-      {
-        title: "あけぼの山公園，
-        body: "シンボルのオランダの風車と四季折々の花畑が魅力、春は約１６万本のカラフルなチューリップ初夏～夏の間はポピー、花しょうぶ、アジサイ、ハス、ひまわり秋じゃコスモスなどがみられる",
+        title: "あけぼの山公園",
+        body: "シンボルのオランダの風車と四季折々の花畑が魅力。春は約１６万本のカラフルなチューリップ、初夏～夏の間はポピー、ハナショウブ、アジサイ、ハス、ひまわり、秋にはコスモスなどがみられる。冬は紅葉、ロウバイや梅、アイスチューリップ、クリスマスツリー展示や冬のイベントなどを楽しむことができる。",
       },
       {
         title: "柏の葉公園",
-        body: "",
+        body: "大型遊具、季節の花や庭園、スポーツ施設、カフェやBBQ場、子供から大人まで１日楽しめる公園。イベントはスプリングフェスタ・オータムフェスタ、リレーマラソン・肉祭り、自然観察会などを行っている。外部団体とのコラボも・・・",
+      },
+      {
+        title: "旧吉田家住宅歴史公園",
+        body: "四季折々の歴史や文化イベントを行っている。また、国指定の重要文化財なので歴史的にも楽しむことができる。イベントではジャズや歌謡曲などの演奏会、夏休みに合わせた和文化・モノづくり体験、地元町会によるお祭り、和紙や和菓子などを体験できる文化祭、冬季を中心に長屋門カフェで甘酒やおしるこなどの限定メニューが登場するなど、幅広いイベントを季節ごとに行っている。",
       }
     ];
 
@@ -228,18 +225,15 @@
 
         const tag = document.createElement("span");
         tag.className = "poem-tag";
-        tag.textContent = poem.tag;
-
-        const date = document.createElement("time");
-        date.textContent = poem.date;
+        tag.textContent = `BEST 0${index + 1}`;
 
         const title = document.createElement("h3");
         title.textContent = poem.title;
 
         const excerpt = document.createElement("p");
-        excerpt.textContent = poem.excerpt;
+        excerpt.textContent = poem.body;
 
-        meta.append(tag, date);
+        meta.append(tag);
         article.append(meta, title, excerpt);
         grid.append(article);
       });
@@ -251,6 +245,7 @@
       const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
       menuToggle.setAttribute("aria-expanded", String(!isOpen));
       menuToggle.setAttribute("aria-label", isOpen ? "メニューを開く" : "メニューを閉じる");
+      menuToggle.setAttribute("aria-label",isOpen ? "メニューを開く" : "メニューを閉じる");
       siteNav.classList.toggle("is-open", !isOpen);
     });
     siteNav.addEventListener("click", (event) => {
